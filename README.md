@@ -5,7 +5,7 @@ Traffic IQ is a smart and interactive web application designed to provide real-t
 
 The goal of Traffic IQ is to create a complete travel assistance system where users can easily search any location, analyze traffic conditions, check environmental factors, and plan their journey efficiently.
 
-✨ Features
+ Features
 Traffic Congestion Score
 
 Traffic IQ calculates the traffic congestion score of a selected location and helps users understand how heavy or smooth the traffic flow is in that area. This helps in avoiding delays and choosing better travel times.
@@ -60,7 +60,8 @@ Delivery services
 Logistics planning
 Emergency route planning
 Smart city navigation systems
-🚀 How It Works
+
+ How It Works
 Open the website
 Search for any location on the map
 View traffic congestion score
@@ -88,6 +89,6 @@ This project represents a step toward intelligent transportation systems and sma
 
 Developed as a modern web solution for real-time traffic intelligence and smart route optimization.
 
-⭐ Final Note
+ Final Note
 
 Traffic IQ is not just a traffic checker — it is a complete smart travel assistant designed to make every journey faster, safer, and more efficient.
