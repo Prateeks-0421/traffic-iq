@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TrafficIQ — Urban Traffic Intelligence</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<!-- ═══════════════════════════ LANDING ═══════════════════════════ -->
+<div id="landing">
+  <div id="landing-map"></div>
+  <div class="ln-overlay"></div>
+  <nav class="ln-nav">
+    <div class="ln-logo">
+      <div class="ln-logo-mark">TQ</div>
+      TrafficIQ
+    </div>
+    <div class="ln-nav-links">
+      <div class="ln-link" onclick="startApp()">Open Map</div>
+      <div class="ln-link primary" onclick="showDevPage()">About Developer</div>
+    </div>
+  </nav>
+
+  <div class="ln-body">
+    <div class="ln-hero">
+      <div class="ln-eyebrow"><span class="ey-pulse"></span>Live &mdash; OpenStreetMap &middot; OSRM &middot; TomTom &middot; Open-Meteo</div>
+      <h1 class="ln-h1">Urban traffic<br>intelligence<br><em>at your fingertips</em></h1>
+      <p class="ln-desc">Pinpoint live incidents, calculate traffic-aware travel time between any two places globally, and monitor real-time weather and air quality &mdash; all on one free platform.</p>
+      <div class="ln-actions">
+        <button class="btn-explore" onclick="startApp()">Explore Live Map</button>
+      </div>
+      <div class="ln-stats">
+        <div class="ln-stat-card"><div class="ln-stat-num">50K+</div><div class="ln-stat-lbl">Incidents / day</div></div>
+        <div class="ln-stat-card"><div class="ln-stat-num">10s</div><div class="ln-stat-lbl">Refresh</div></div>
+        <div class="ln-stat-card"><div class="ln-stat-num">Global</div><div class="ln-stat-lbl">Coverage</div></div>
+        <div class="ln-stat-card"><div class="ln-stat-num">Free</div><div class="ln-stat-lbl">No Key</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ln-right-panel">
+    <div class="ln-feat-card"><div class="lfc-indicator" style="background:var(--ok)"></div><div class="lfc-title">Live Incidents</div><div class="lfc-desc">Severity-classified events updated every 10 s from TomTom</div></div>
+    <div class="ln-feat-card"><div class="lfc-indicator" style="background:var(--a)"></div><div class="lfc-title">Traffic-Aware Routing</div><div class="lfc-desc">Real-traffic routing via TomTom — car, bicycle or foot</div></div>
+    <div class="ln-feat-card"><div class="lfc-indicator" style="background:var(--warn)"></div><div class="lfc-title">Weather + AQI</div><div class="lfc-desc">Live temperature, wind, and air quality via Open-Meteo</div></div>
+    <div class="ln-feat-card"><div class="lfc-indicator" style="background:var(--danger)"></div><div class="lfc-title">Click to Locate</div><div class="lfc-desc">Tap any map point for address, coordinates and nearby traffic</div></div>
+  </div>
+
+  <div class="ln-bottom">
+    <div class="ln-scroll-hint"><div class="ln-scroll-line"></div>Click anywhere on the map to open the dashboard</div>
+  </div>
+  <div class="map-explore-tip">Click anywhere on the map to explore</div>
+</div>
+
+<!-- ═══════════════════════════ DEVELOPER PAGE ═══════════════════════════ -->
+<div id="devPage">
+  <div class="dev-nav">
+    <div class="dev-nav-logo" onclick="hideDevPage()">
+      <div class="ln-logo-mark" style="width:26px;height:26px;font-size:11px">TQ</div>
+      TrafficIQ &nbsp;<span>/ Developer</span>
+    </div>
+    <div class="dev-back" onclick="hideDevPage()">&#8592; Back to Home</div>
+  </div>
+
+  <div class="dev-body">
+    <!-- HERO -->
+    <div class="dev-hero">
+      <div class="dev-hero-inner">
+        <div class="dev-photo-wrap">
+          <div class="dev-photo">
+               <img src="prateek.png" alt="oooo" class="photo">
+          </div>
+          <!-- <div class="dev-photo-note">Photo placeholder</div> -->
+        </div>
+        <div class="dev-intro">
+          <div class="dev-eyebrow"><span class="ey-pulse"></span>Available for Internships &amp; Projects</div>
+          <div class="dev-name">Prateek Singh</div>
+          <div class="dev-title">
+            <strong>Full-Stack Developer</strong> &middot; Problem Solver &middot; Machine Learning<br>
+            Turning complex data into intuitive, performant web applications.
+          </div>
+          <div class="dev-inst-row">
+            <div class="dev-inst-badge"><span class="dot"></span>NIT Jalandhar &mdash; B.Tech IT</div>
+            <div class="dev-year-badge">3rd Year &middot; 2023&ndash;27</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID SECTIONS: About | Skills on row 1, Contact full-width on row 2 -->
+    <div class="dev-grid">
+
+      <!-- ABOUT -->
+      <div class="dev-col">
+        <div class="dev-section-label">About</div>
+        <p class="bio-text">
+          I am a <strong>third-year Information Technology student</strong> at NIT Jalandhar with a deep interest in building full-stack products that solve real-world problems. My work spans from designing scalable REST APIs and reactive front-ends to training machine learning models on structured and unstructured data.
+        </p>
+        <p class="bio-text">
+          I built <strong>TrafficIQ</strong> as an open-data platform that aggregates live traffic incidents, weather, and routing APIs into a single cohesive dashboard &mdash; demonstrating that professional-grade intelligence tools need not be behind paywalls.
+        </p>
+        <div class="stat-row">
+          <div class="bio-stat"><div class="bs-num">8+</div><div class="bs-lbl">Projects</div></div>
+          <div class="bio-stat"><div class="bs-num">3+</div><div class="bs-lbl">Years Coding</div></div>
+          <div class="bio-stat"><div class="bs-num">5+</div><div class="bs-lbl">Open-Source</div></div>
+          <div class="bio-stat"><div class="bs-num">CGPA<br><span style="font-size:14px">7.5</span></div><div class="bs-lbl">Academic</div></div>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="dev-col" style="border-right:none">
+        <div class="dev-section-label">Technical Skills</div>
+        <div class="skill-group">
+          <div class="sg-title">Frontend</div>
+          <div class="skill-tags">
+            <span class="stag hl">React.js</span>
+            <span class="stag hl">Next.js</span>
+            <span class="stag">HTML5 / CSS3</span>
+            <span class="stag">Tailwind CSS</span>
+            <span class="stag">Leaflet.js</span>
+            <span class="stag">Chart.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Backend</div>
+          <div class="skill-tags">
+            <span class="stag hl">Node.js</span>
+            <span class="stag hl">Express.js</span>
+            <span class="stag">Python / FastAPI</span>
+            <span class="stag">REST APIs</span>
+            <span class="stag">MongoDB</span>
+            <span class="stag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Data Science &amp; ML</div>
+          <div class="skill-tags">
+            <span class="stag hl">Python</span>
+            <span class="stag">Pandas / NumPy</span>
+            <span class="stag">Scikit-learn</span>
+            <span class="stag">TensorFlow</span>
+            <span class="stag">Matplotlib</span>
+            <span class="stag">Jupyter</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="sg-title">Tools &amp; DevOps</div>
+          <div class="skill-tags">
+            <span class="stag">Git / GitHub</span>
+            <span class="stag">Docker</span>
+            <span class="stag">Vercel</span>
+            <span class="stag">Linux</span>
+            <span class="stag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT — full width spanning both columns -->
+      <div class="dev-col" style="grid-column:1/-1">
+        <div class="dev-section-label">Contact &amp; Profiles</div>
+        <div class="contact-grid">
+          <div class="contact-links">
+            <a class="c-link" href="https://github.com/Prateeks-0421" target="_blank" rel="noopener">
+              <div class="c-link-ico" style="background:rgba(255,255,255,0.06);color:var(--text);font-size:12px">GH</div>
+              <div class="c-link-txt">
+                <div class="c-link-title">GitHub</div>
+                <div class="c-link-sub">github.com/Prateeks-0421</div>
+              </div>
+            </a>
+            <a class="c-link" href="https://www.linkedin.com/in/prateek-singh-a34002313/" target="_blank" rel="noopener">
+              <div class="c-link-ico" style="background:rgba(10,102,194,0.12);color:#0A66C2;font-size:12px">LI</div>
+              <div class="c-link-txt">
+                <div class="c-link-title">LinkedIn</div>
+                <div class="c-link-sub">linkedin.com/in/prateek-singh-a34002313/</div>
+              </div>
+            </a>
+            <a class="c-link" href="mailto:prateekit.23@nitj.ac.in">
+              <div class="c-link-ico" style="background:var(--a-lt);color:var(--a);font-size:12px">@</div>
+              <div class="c-link-txt">
+                <div class="c-link-title">Institute Email</div>
+                <div class="c-link-sub">prateeksr.it.23@nitj.ac.in</div>
+              </div>
+            </a>
+            <a class="c-link" href="https://leetcode.com/u/Prateek_Singh1223/" target="_blank" rel="noopener">
+              <div class="c-link-ico" style="background:rgba(255,161,22,0.1);color:#FFA11A;font-size:12px">LC</div>
+              <div class="c-link-txt">
+                <div class="c-link-title">LeetCode</div>
+                <div class="c-link-sub">700+ problems solved &middot;</div>
+              </div>
+            </a>
+          </div>
+
+          <div>
+            <div class="dev-section-label">Education</div>
+            <div style="padding:13px 14px;background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r-sm)">
+              <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">National Institute of Technology, Jalandhar</div>
+              <div style="font-size:11px;color:pink;font-family:var(--mono);margin-bottom:8px">B.Tech &mdash; Information Technology  &middot; 2023 &ndash; 2027</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <span class="stag">Data Structures</span>
+                <span class="stag">Algorithms</span>
+                <span class="stag">DBMS</span>
+                <span class="stag">OS</span>
+                <span class="stag">Computer Networks</span>
+                <span class="stag">ML</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end dev-grid -->
+
+    <!-- <div class="dev-footer">
+      <div class="dev-footer-txt">Built with <span>&#9829;</span> using open data APIs &mdash; TrafficIQ &copy; 2026 Prateek Singh</div>
+      <div class="dev-footer-txt" style="opacity:.6">NIT Jalandhar &middot; IT 3rd Year &middot; India</div>
+    </div> -->
+  </div><!-- end dev-body -->
+</div>
+
+<!-- ═══════════════════════════ DASHBOARD ═══════════════════════════ -->
+<div id="app">
+  <div id="map"></div>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-brand" onclick="showLanding()"><div class="tb-mark">TQ</div>TrafficIQ</div>
+    <div class="tb-divider"></div>
+    <div class="search-shell">
+      <div class="search-inner">
+        <span class="s-icon">&#9906;</span>
+        <input id="searchInput" type="text" placeholder="Search any city, address, or coordinates&#8230;" autocomplete="off"/>
+        <button class="s-x" id="sClear" onclick="clearSearch()">&#10005;</button>
+        <div class="s-spin" id="sSpin"></div>
+      </div>
+      <div class="sug-drop" id="sugDrop"></div>
+    </div>
+    <button class="tb-btn" id="selBtn" onclick="toggleSel()">Select Area</button>
+    <button class="tb-btn" onclick="toggleLayers()">Layers</button>
+    <button class="tb-btn" id="routeTopBtn" onclick="toggleRoute()">Route Planner</button>
+    <button class="tb-btn" onclick="showAnalysis()">Analysis</button>
+    <button class="tb-btn" onclick="doExport()">Export CSV</button>
+    <div class="tb-right">
+      <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+      <div class="tb-divider"></div>
+      <span class="cdown-val" id="cdown">&#8635; &mdash;</span>
+    </div>
+  </div>
+
+  <!-- Mobile stats bar -->
+  <div class="mobile-stats-bar" id="mobileStatsBar">
+    <div class="msb-item"><div class="msb-val" id="msbInc">&#8212;</div><div class="msb-lbl">Incidents</div></div>
+    <div class="msb-sep"></div>
+    <div class="msb-item"><div class="msb-val" id="msbSev" style="color:var(--danger)">&#8212;</div><div class="msb-lbl">Severe</div></div>
+    <div class="msb-sep"></div>
+    <div class="msb-item"><div class="msb-val" id="msbStatus" style="color:var(--ok)">&#8212;</div><div class="msb-lbl">Traffic</div></div>
+    <div class="msb-sep"></div>
+    <div class="msb-item"><div class="msb-val" id="msbTemp">&#8212;</div><div class="msb-lbl">Temp</div></div>
+    <div class="msb-sep"></div>
+    <div class="msb-item"><div class="msb-val" id="msbCity" style="color:var(--text-2);font-size:11px">&#8212;</div><div class="msb-lbl">City</div></div>
+  </div>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel" id="leftPanel">
+    <div class="lp-card">
+      <div class="wx-temp" id="wxTemp">&#8212;&deg;</div>
+      <div class="wx-cond" id="wxDesc">Loading weather&#8230;</div>
+      <div class="wx-row">
+        <span class="wx-tag" id="wxWind">&#8212; km/h</span>
+        <span class="wx-tag" id="wxHumid">&#8212; %</span>
+      </div>
+      <div class="wx-aqi-badge" id="wxAqi" style="display:none">AQI &#8212;</div>
+    </div>
+    <div class="lp-card">
+      <div class="lt-time" id="ltTime">--:--:--</div>
+      <div class="lt-city" id="ltPlace">Loading&#8230;</div>
+      <div class="lt-date" id="ltDate"></div>
+    </div>
+    <div class="lp-card">
+      <div class="lp-stat">
+        <div class="lp-num" id="sTotal">&#8212;</div>
+        <div class="lp-right"><div class="lp-label">Incidents</div><div class="lp-delta delta-eq" id="sdTotal">&#8212;</div></div>
+      </div>
+    </div>
+    <div class="lp-card">
+      <div class="lp-stat">
+        <div class="lp-num" id="sSevere" style="color:var(--danger)">&#8212;</div>
+        <div class="lp-right"><div class="lp-label">Severe</div><div class="lp-delta delta-eq" id="sdSevere">&#8212;</div></div>
+      </div>
+    </div>
+    <div class="lp-card">
+      <div class="cong-row">
+        <div class="cring" id="cRing">&#8212;</div>
+        <div><div class="cring-sub">Congestion</div><div class="cring-status" id="cStat">&#8212;</div></div>
+      </div>
+    </div>
+    <div class="lp-card">
+      <div class="sev-row"><div class="sev-dot" style="background:var(--danger)"></div><span class="sev-name">High</span><div class="sev-track"><div class="sev-fill" id="sfH" style="background:var(--danger);width:0%"></div></div><span class="sev-n" id="snH">0</span></div>
+      <div class="sev-row"><div class="sev-dot" style="background:var(--warn)"></div><span class="sev-name">Med</span><div class="sev-track"><div class="sev-fill" id="sfM" style="background:var(--warn);width:0%"></div></div><span class="sev-n" id="snM">0</span></div>
+      <div class="sev-row"><div class="sev-dot" style="background:var(--ok)"></div><span class="sev-name">Low</span><div class="sev-track"><div class="sev-fill" id="sfL" style="background:var(--ok);width:0%"></div></div><span class="sev-n" id="snL">0</span></div>
+    </div>
+    <div class="lp-card">
+      <div class="trend-lbl">Trend &mdash; 10 polls</div>
+      <canvas id="tChart" class="tc"></canvas>
+    </div>
+  </div>
+
+  <!-- Layer panel -->
+  <div class="layer-float" id="layerFloat">
+    <div class="lf-title">Map Layers</div>
+    <div class="lf-row"><span class="lf-name">Incidents</span><div class="tgl on" id="tInc" onclick="togLayer('inc')"></div></div>
+    <div class="lf-row"><span class="lf-name">Heatmap</span><div class="tgl" id="tHeat" onclick="togLayer('heat')"></div></div>
+    <div class="lf-row"><span class="lf-name">Satellite</span><div class="tgl" id="tSat" onclick="togLayer('sat')"></div></div>
+    <div class="lf-row"><span class="lf-name">Dark Mode</span><div class="tgl" id="tDark" onclick="togLayer('dark')"></div></div>
+  </div>
+
+  <!-- Zoom controls -->
+  <div class="z-controls">
+    <div class="z-btn" onclick="lmap.zoomIn()">+</div>
+    <div class="z-btn" onclick="lmap.zoomOut()">&minus;</div>
+    <div class="z-btn" onclick="goMyLoc()" title="My location">&#9678;</div>
+    <div class="z-btn" onclick="fetchTraffic()" title="Refresh">&#8635;</div>
+    <div class="z-btn" onclick="fitAll()" title="Fit all">&#8886;</div>
+  </div>
+
+  <!-- Click location panel -->
+  <div class="loc-reveal" id="locReveal">
+    <div class="lr-head"><span class="lr-label">Location</span><div class="lr-close" onclick="closeLR()">&#10005;</div></div>
+    <div class="lr-place" id="lrPlace">Locating&#8230;</div>
+    <div class="lr-coord" id="lrCoord"></div>
+    <div class="lr-actions">
+      <div class="lr-act prim" onclick="lrSetOrigin()">Set Origin</div>
+      <div class="lr-act" onclick="lrSetDest()">Set Dest</div>
+      <div class="lr-act" onclick="lrLoadTraffic()">Load Traffic</div>
+    </div>
+  </div>
+
+  <!-- Map status bar -->
+  <div class="map-status" id="mapStatus">
+    <div class="ms-item"><div class="ms-val" id="msStatus" style="color:var(--ok)">&#8212;</div><div class="ms-lbl">Traffic</div></div>
+    <div class="ms-sep"></div>
+    <div class="ms-item"><div class="ms-val" id="msTime">&#8212;</div><div class="ms-lbl">Updated</div></div>
+    <div class="ms-sep"></div>
+    <div class="ms-item"><div class="ms-val" id="msCoords" style="font-size:11px">28.614, 77.209</div><div class="ms-lbl">Coords</div></div>
+    <div class="ms-sep"></div>
+    <div class="ms-item"><div class="ms-val" id="msTotal" style="color:var(--a)">&#8212;</div><div class="ms-lbl">Total</div></div>
+  </div>
+
+  <!-- Incidents FAB -->
+  <div class="inc-fab" id="incFab" onclick="toggleSheet()">
+    <div class="fab-dot" id="fabDot" style="background:var(--ok)"></div>
+    <span id="fabLabel">Incidents</span>
+    <span id="fabCount" style="font-family:var(--mono);font-size:11px;color:var(--text-3)">&#8212;</span>
+    <span style="font-size:10px;color:var(--text-3)" id="fabArrow">&#9650;</span>
+  </div>
+
+  <!-- Bottom sheet -->
+  <div class="bottom-sheet" id="bottomSheet">
+    <div class="bs-handle-bar" onclick="toggleSheet()">
+      <div class="bs-handle"></div>
+      <span class="bs-title">Live Incidents</span>
+      <span class="bs-count" id="bsCount">0 found</span>
+      <div class="bs-filter-row">
+        <div class="bs-chip on" onclick="setFilt('all',this);event.stopPropagation()">All</div>
+        <div class="bs-chip" onclick="setFilt('high',this);event.stopPropagation()">High</div>
+        <div class="bs-chip" onclick="setFilt('med',this);event.stopPropagation()">Med</div>
+        <div class="bs-chip" onclick="setFilt('low',this);event.stopPropagation()">Low</div>
+      </div>
+    </div>
+    <div class="bs-body" id="bsBody">
+      <div class="empty-inc">Search a city or click the map to load incidents.</div>
+    </div>
+  </div>
+
+  <!-- Route panel -->
+  <div class="route-panel" id="routePanel">
+    <div class="rp-scroll">
+      <div class="rp-top">
+        <div class="rp-title">Route Planner</div>
+        <div class="rp-close" onclick="toggleRoute()">&#10005;</div>
+      </div>
+
+      <label class="field-lbl" for="rFrom">Origin</label>
+      <input class="field-input" id="rFrom" placeholder="City, address, or lat,lng"/>
+      <div class="resolved-tag" id="hFrom"></div>
+
+      <label class="field-lbl" for="rTo">Destination</label>
+      <input class="field-input" id="rTo" placeholder="City, address, or lat,lng"/>
+      <div class="resolved-tag" id="hTo"></div>
+
+      <label class="field-lbl" style="margin-bottom:6px">Mode of Transport</label>
+      <div class="mode-row">
+        <div class="mode-opt on" data-m="driving" onclick="pickMode(this)">
+          CAR
+          <!-- <span class="mo-label">~70 km/h</span> -->
+        </div>
+        <div class="mode-opt" data-m="cycling" onclick="pickMode(this)">
+          BIKE
+          <!-- <span class="mo-label">~40 km/h</span> -->
+        </div>
+        <div class="mode-opt" data-m="foot" onclick="pickMode(this)">
+          WALKING
+          <!-- <span class="mo-label">~5 km/h</span> -->
+        </div>
+      </div>
+
+      <button class="calc-btn" id="calcBtn" onclick="calcRoute()">Calculate Fastest Route</button>
+      <div class="route-card" id="routeCard"></div>
+
+      <div style="margin-top:18px">
+        <label class="field-lbl" style="display:block;margin-bottom:8px">Quick Cities</label>
+        <div class="qc-grid">
+          <div class="qc" onclick="qs('New Delhi, India')">New Delhi</div>
+          <div class="qc" onclick="qs('Mumbai, Maharashtra, India')">Mumbai</div>
+          <div class="qc" onclick="qs('Bengaluru, Karnataka, India')">Bengaluru</div>
+          <div class="qc" onclick="qs('Ludhiana, Punjab, India')">Ludhiana</div>
+          <div class="qc" onclick="qs('Hyderabad, Telangana, India')">Hyderabad</div>
+          <div class="qc" onclick="qs('Chennai, Tamil Nadu, India')">Chennai</div>
+          <div class="qc" onclick="qs('Kolkata, West Bengal, India')">Kolkata</div>
+          <div class="qc" onclick="qs('Pune, Maharashtra, India')">Pune</div>
+          <div class="qc" onclick="qs('Jaipur, Rajasthan, India')">Jaipur</div>
+          <div class="qc" onclick="qs('Chandigarh, India')">Chandigarh</div>
+          <div class="qc" onclick="qs('Dubai, UAE')">Dubai</div>
+          <div class="qc" onclick="qs('London, UK')">London</div>
+          <div class="qc" onclick="qs('New York City, USA')">New York</div>
+          <div class="qc" onclick="qs('Tokyo, Japan')">Tokyo</div>
+          <div class="qc" onclick="qs('Singapore')">Singapore</div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px">
+        <label class="field-lbl" style="display:block;margin-bottom:8px">Nearby Alerts</label>
+        <div id="nearbyDiv"><div style="font-size:12px;color:var(--text-3);padding:10px 0">Select a map point to view nearby alerts.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load overlay -->
+  <div class="load-ov" id="loadOv">
+    <div class="load-box"><div class="spin"></div><div class="load-txt" id="loadTxt">Loading&#8230;</div></div>
+  </div>
+</div>
+
+<!-- Analysis Modal -->
+<div class="modal-ov" id="aModal">
+  <div class="modal-card">
+    <div class="m-head">Traffic Analysis <span class="m-x" onclick="closeMod()">&#10005;</span></div>
+    <div id="mBody"><div style="color:var(--text-3);text-align:center;padding:20px">Search a city first to load data.</div></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><div class="t-title" id="tT"></div><div class="t-body" id="tB"></div></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</script>
+</body>
+</html>
